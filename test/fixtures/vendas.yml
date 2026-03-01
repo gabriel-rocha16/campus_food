@@ -1,0 +1,13 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  data: 2026-03-01 00:11:17
+  total: 9.99
+  cliente: one
+  funcionario: one
+
+two:
+  data: 2026-03-01 00:11:17
+  total: 9.99
+  cliente: two
+  funcionario: two
