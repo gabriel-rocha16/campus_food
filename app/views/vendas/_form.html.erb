@@ -1,0 +1,36 @@
+<%= form_with(model: venda) do |form| %>
+  <% if venda.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(venda.errors.count, "erro") %> impediram esta venda de ser salva:</h2>
+      <ul>
+        <% venda.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.label :data, "Data da Venda", style: "display: block" %>
+    <%= form.datetime_field :data %>
+  </div>
+
+  <div>
+    <%= form.label :total, "Valor Total (R$)", style: "display: block" %>
+    <%= form.text_field :total %>
+  </div>
+
+  <div style="margin-top: 10px;">
+    <%= form.label :cliente_id, "Selecione o Cliente", style: "display: block" %>
+    <%= form.collection_select :cliente_id, Cliente.all, :id, :nome, { prompt: "Escolha um cliente..." }, { style: "display: block; width: 100%; max-width: 300px;" } %>
+  </div>
+
+  <div style="margin-top: 10px;">
+    <%= form.label :funcionario_id, "Funcionário que atendeu", style: "display: block" %>
+    <%= form.collection_select :funcionario_id, Funcionario.all, :id, :nome, { prompt: "Escolha um funcionário..." }, { style: "display: block; width: 100%; max-width: 300px;" } %>
+  </div>
+
+  <div style="margin-top: 20px;">
+    <%= form.submit "Registrar Venda", style: "background: #2c3e50; color: white; padding: 10px 20px; border: none; cursor: pointer;" %>
+  </div>
+<% end %>

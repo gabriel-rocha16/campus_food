@@ -23,7 +23,31 @@
     <%= javascript_importmap_tags %>
   </head>
 
-  <body>
-    <%= yield %>
+<body>
+    <nav style="background: #2c3e50; padding: 15px; display: flex; gap: 20px; align-items: center;">
+      <strong style="color: white; font-size: 1.2rem; margin-right: 20px;">CAMPUS FOOD 3.0</strong>
+      <%= link_to "Produtos", produtos_path, style: "color: white; text-decoration: none;" %>
+      <%= link_to "Clientes", clientes_path, style: "color: white; text-decoration: none;" %>
+      <%= link_to "Vendas", vendas_path, style: "color: white; text-decoration: none;" %>
+      <%# Se você criou o de Funcionários, adicione aqui %>
+      <%= link_to "Funcionários", funcionarios_path, style: "color: white; text-decoration: none;" if defined?(funcionarios_path) %>
+    </nav>
+
+    <div style="background: #ecf0f1; padding: 10px; text-align: right; border-bottom: 1px solid #bdc3c7;">
+      <% if user_signed_in? %>
+        <span>Logado como: <strong><%= current_user.email %></strong></span>
+        <%= link_to "Sair", destroy_user_session_path, data: { turbo_method: :delete }, style: "margin-left: 15px; color: #e74c3c; font-weight: bold;" %>
+      <% else %>
+        <%= link_to "Entrar", new_user_session_path, style: "margin-right: 10px;" %>
+        <%= link_to "Registrar", new_user_registration_path %>
+      <% end %>
+    </div>
+
+    <p style="color: green; text-align: center;"><%= notice %></p>
+    <p style="color: red; text-align: center;"><%= alert %></p>
+
+    <main style="padding: 20px; max-width: 1200px; margin: 0 auto;">
+      <%= yield %>
+    </main>
   </body>
 </html>
