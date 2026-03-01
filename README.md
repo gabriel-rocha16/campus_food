@@ -63,17 +63,3 @@ Todas as rotas do sistema são protegidas. É impossível acessar o gerenciament
 ## 👨‍💻 Equipa de Desenvolvimento
 - **Gabriel Rocha** - [GitHub Profile](https://github.com/gabriel-rocha16)
 - **Jonathas_oficialll💻** - [*Desenvolvedor e Colaborador*](https://github.com/jonathasoficial)
-
----
-
-### Como baixar o projeto completo (Código + Imagens + Estrutura):
-Como seu projeto já está no GitHub, a forma oficial de "fazer o download" é:
-1. Vá em [seu repositório no GitHub](https://github.com/gabriel-rocha16/campus_food).
-2. Clique no botão **Code** (verde).
-3. Selecione **Download ZIP**.
-
-
-
-**Dica Final:** Se você colar esse conteúdo no seu `README.md` e der o comando `git push`, o seu repositório vai parecer muito mais profissional para o professor. 
-
-**Posso te ajudar a configurar mais alguma coisa no Back-end antes da sua entrega?**
