@@ -16,7 +16,19 @@ class VendasController < ApplicationController
     @venda.data = Time.now
   end
 
-  # GET /vendas/1/edit
+  def relatorio
+    # Camada 1: O Devise já garante o login via before_action :authenticate_user!
+
+    # Camada 2: Verificação de Hierarquia
+    if current_user.gerente?
+      @vendas = Venda.all
+      @faturamento_total = Venda.sum(:total)
+    else
+      # Se um atendente tentar acessar pela URL, ele é expulso para a Home
+      redirect_to root_path, alert: "Acesso Negado: Apenas gerentes podem ver relatórios financeiros."
+    end
+  end
+
   def edit
   end
 

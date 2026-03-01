@@ -1,9 +1,14 @@
 class FuncionariosController < ApplicationController
   before_action :set_funcionario, only: %i[ show edit update destroy ]
+  before_action :authenticate_user!
 
-  # GET /funcionarios or /funcionarios.json
   def index
-    @funcionarios = Funcionario.all
+    # 2. Agora o current_user existe e o método .atendente? vai funcionar
+    if current_user.atendente?
+      redirect_to root_path, alert: "Acesso negado! Apenas gerentes podem ver funcionários."
+    else
+      @funcionarios = Funcionario.all
+    end
   end
 
   # GET /funcionarios/1 or /funcionarios/1.json
