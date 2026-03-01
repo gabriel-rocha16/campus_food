@@ -3,6 +3,8 @@ require "test_helper"
 class FuncionariosControllerTest < ActionDispatch::IntegrationTest
   setup do
     @funcionario = funcionarios(:one)
+    @user = users(:two)
+    sign_in @user
   end
 
   test "should get index" do
@@ -40,6 +42,7 @@ class FuncionariosControllerTest < ActionDispatch::IntegrationTest
 
   test "should destroy funcionario" do
     assert_difference("Funcionario.count", -1) do
+      Venda.where(funcionario_id: @funcionario.id).destroy_all
       delete funcionario_url(@funcionario)
     end
 

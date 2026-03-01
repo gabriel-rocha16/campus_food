@@ -3,6 +3,8 @@ require "test_helper"
 class ClientesControllerTest < ActionDispatch::IntegrationTest
   setup do
     @cliente = clientes(:one)
+    @user = users(:one)
+    sign_in @user
   end
 
   test "should get index" do
@@ -40,6 +42,7 @@ class ClientesControllerTest < ActionDispatch::IntegrationTest
 
   test "should destroy cliente" do
     assert_difference("Cliente.count", -1) do
+      Venda.where(cliente_id: @cliente.id).destroy_all
       delete cliente_url(@cliente)
     end
 
