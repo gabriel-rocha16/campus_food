@@ -1,6 +1,6 @@
 <%= form_with(model: venda) do |form| %>
   <% if venda.errors.any? %>
-    <div style="color: red">
+    <div style="color: red; border: 1px solid red; padding: 10px; margin-bottom: 20px;">
       <h2><%= pluralize(venda.errors.count, "erro") %> impediram esta venda de ser salva:</h2>
       <ul>
         <% venda.errors.each do |error| %>
@@ -10,27 +10,56 @@
     </div>
   <% end %>
 
-  <div>
-    <%= form.label :data, "Data da Venda", style: "display: block" %>
-    <%= form.datetime_field :data %>
+  <div style="display: flex; gap: 20px; margin-bottom: 20px;">
+    <div>
+      <%= form.label :data, "Data da Venda", style: "display: block; font-weight: bold;" %>
+      <%= form.datetime_field :data %>
+    </div>
+
+    <div>
+      <%= form.label :total, "Valor Total (R$)", style: "display: block; font-weight: bold;" %>
+      <%= form.text_field :total, placeholder: "0.00" %>
+    </div>
   </div>
 
-  <div>
-    <%= form.label :total, "Valor Total (R$)", style: "display: block" %>
-    <%= form.text_field :total %>
+  <div style="margin-bottom: 15px;">
+    <%= form.label :cliente_id, "Selecione o Cliente", style: "display: block; font-weight: bold;" %>
+    <%= form.collection_select :cliente_id, Cliente.all, :id, :nome, { prompt: "Escolha um cliente..." }, { style: "width: 100%; max-width: 400px; padding: 5px;" } %>
   </div>
 
-  <div style="margin-top: 10px;">
-    <%= form.label :cliente_id, "Selecione o Cliente", style: "display: block" %>
-    <%= form.collection_select :cliente_id, Cliente.all, :id, :nome, { prompt: "Escolha um cliente..." }, { style: "display: block; width: 100%; max-width: 300px;" } %>
+  <div style="margin-bottom: 15px;">
+    <%= form.label :funcionario_id, "Funcionário que atendeu", style: "display: block; font-weight: bold;" %>
+    <%= form.collection_select :funcionario_id, Funcionario.all, :id, :nome, { prompt: "Escolha um funcionário..." }, { style: "width: 100%; max-width: 400px; padding: 5px;" } %>
   </div>
 
-  <div style="margin-top: 10px;">
-    <%= form.label :funcionario_id, "Funcionário que atendeu", style: "display: block" %>
-    <%= form.collection_select :funcionario_id, Funcionario.all, :id, :nome, { prompt: "Escolha um funcionário..." }, { style: "display: block; width: 100%; max-width: 300px;" } %>
+  <hr style="margin: 30px 0;">
+  
+  <h3 style="color: #2c3e50;">Produtos / Itens da Venda</h3>
+  
+  <div id="itens-venda">
+    <%= form.fields_for :itens_venda do |item_form| %>
+      <div class="item-form-row" style="display: flex; gap: 15px; align-items: flex-end; background: #f9f9f9; padding: 15px; border-radius: 5px; margin-bottom: 10px; border: 1px solid #ddd;">
+        
+        <div style="flex: 2;">
+          <%= item_form.label :produto_id, "Produto", style: "display: block;" %>
+          <%= item_form.collection_select :produto_id, Produto.all, :id, :nome, { prompt: "Selecione o produto..." }, { style: "width: 100%; padding: 5px;" } %>
+        </div>
+
+        <div style="flex: 1;">
+          <%= item_form.label :quantidade, "Qtd", style: "display: block;" %>
+          <%= item_form.number_field :quantidade, step: 1, min: 1, style: "width: 100%; padding: 5px;" %>
+        </div>
+
+        <div style="flex: 1;">
+          <%= item_form.label :preco_unitario, "Preço Unit. (R$)", style: "display: block;" %>
+          <%= item_form.text_field :preco_unitario, placeholder: "0.00", style: "width: 100%; padding: 5px;" %>
+        </div>
+
+      </div>
+    <% end %>
   </div>
 
-  <div style="margin-top: 20px;">
-    <%= form.submit "Registrar Venda", style: "background: #2c3e50; color: white; padding: 10px 20px; border: none; cursor: pointer;" %>
+  <div style="margin-top: 30px; padding-top: 20px; border-top: 2px solid #eee;">
+    <%= form.submit "Finalizar e Registrar Venda", style: "background: #27ae60; color: white; padding: 12px 30px; border: none; border-radius: 4px; cursor: pointer; font-size: 16px; font-weight: bold;" %>
   </div>
 <% end %>

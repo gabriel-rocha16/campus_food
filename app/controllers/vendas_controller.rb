@@ -14,6 +14,7 @@ class VendasController < ApplicationController
   def new
     @venda = Venda.new
     @venda.data = Time.now
+    @venda.itens_venda.build
   end
 
   def relatorio
@@ -78,6 +79,7 @@ class VendasController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def venda_params
-      params.expect(venda: [ :data, :total, :cliente_id, :funcionario_id ])
+      params.require(:venda).permit(:data, :total, :cliente_id, :funcionario_id,
+        itens_venda_attributes: [ :id, :produto_id, :quantidade, :preco_unitario, :_destroy ])
     end
 end
