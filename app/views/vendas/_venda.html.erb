@@ -1,22 +1,23 @@
-<div id="<%= dom_id venda %>">
-  <div>
-    <strong>Data:</strong>
-    <%= venda.data %>
-  </div>
+<div id="<%= dom_id venda %>" style="padding: 15px; margin: 10px 0; border: 1px solid #ddd; border-radius: 5px; background-color: #f9f9f9;">
+  <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+    <div>
+      <strong>Data:</strong>
+      <%= venda.data.strftime('%d/%m/%Y %H:%M') if venda.data %>
+    </div>
 
-  <div>
-    <strong>Total:</strong>
-    <%= venda.total %>
-  </div>
+    <div>
+      <strong>Total:</strong>
+      <%= number_to_currency(venda.total || 0, unit: "R$ ", separator: ",", delimiter: ".") %>
+    </div>
 
-  <div>
-    <strong>Cliente:</strong>
-    <%= venda.cliente_id %>
-  </div>
+    <div>
+      <strong>Cliente:</strong>
+      <%= venda.cliente&.nome || "N/A" %>
+    </div>
 
-  <div>
-    <strong>Funcionario:</strong>
-    <%= venda.funcionario_id %>
+    <div>
+      <strong>Funcionário:</strong>
+      <%= venda.funcionario&.nome || "N/A" %>
+    </div>
   </div>
-
 </div>
