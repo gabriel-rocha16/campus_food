@@ -17,17 +17,65 @@
 
     <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
+
+    <style>
+      /* Estilos para manter o Footer no fundo (Sticky Footer) */
+      html, body {
+        height: 100%;
+        margin: 0;
+      }
+
+      body {
+        display: flex;
+        flex-direction: column;
+        font-family: sans-serif;
+      }
+
+      .main-content {
+        flex: 1 0 auto; /* Faz o conteúdo principal crescer e empurrar o footer */
+        padding: 20px;
+      }
+
+      /* Estilização do Footer */
+      .main-footer {
+        flex-shrink: 0; /* Impede o footer de encolher */
+        background-color: #2c3e50;
+        color: white;
+        padding: 20px 0;
+        margin-top: 40px;
+        border-top: 4px solid #e67e22; /* Detalhe em laranja para combinar com o logo */
+      }
+
+      .footer-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0 20px;
+      }
+
+      .footer-info p {
+        margin: 5px 0;
+        font-size: 14px;
+        opacity: 0.8;
+      }
+
+      .footer-brand {
+        font-weight: bold;
+        letter-spacing: 1px;
+      }
+    </style>
   </head>
 
   <body>
 
-    <!-- ===== TOPBAR ===== -->
     <header class="topbar">
       <div class="topbar-container">
 
         <div class="logo">
-          <span class="campus">CAMPUS</span>
-          <span class="food">FOOD</span>
+          <span class="campus" style="color: #2c3e50; font-weight: bold;">CAMPUS</span>
+          <span class="food" style="color: #e67e22; font-weight: bold;">FOOD</span>
         </div>
 
         <nav class="menu">
@@ -50,7 +98,7 @@
         <div class="user-info">
           <% if user_signed_in? %>
             <span>Logado como: <strong><%= current_user.email %></strong></span>
-            <%= link_to "Sair", destroy_user_session_path, data: { turbo_method: :delete }, class: "logout" %>
+            <%= link_to "Sair", destroy_user_session_path, data: { turbo_method: :delete }, class: "logout", style: "margin-left: 10px; color: #e74c3c;" %>
           <% else %>
             <%= link_to "Entrar", new_user_session_path, class: "auth-link" %>
             <%= link_to "Registrar", new_user_registration_path, class: "auth-link" %>
@@ -60,19 +108,33 @@
       </div>
     </header>
 
-    <!-- ===== FLASH MESSAGES ===== -->
     <main class="main-content">
-
       <% if notice %>
-        <p class="flash notice"><%= notice %></p>
+        <p class="flash notice" style="background: #d4edda; color: #155724; padding: 10px; border-radius: 5px;"><%= notice %></p>
       <% end %>
 
       <% if alert %>
-        <p class="flash alert"><%= alert %></p>
+        <p class="flash alert" style="background: #f8d7da; color: #721c24; padding: 10px; border-radius: 5px;"><%= alert %></p>
       <% end %>
 
       <%= yield %>
     </main>
+
+    <footer class="main-footer">
+      <div class="footer-container">
+        <div class="footer-info">
+          <p class="footer-brand">CAMPUS FOOD SYSTEM</p>
+          <p>&copy; <%= Time.now.year %> - Todos os direitos reservados.</p>
+        </div>
+        
+        <div class="footer-info" style="text-align: right;">
+          <p>Ambiente: <strong><%= Rails.env.capitalize %></strong></p>
+          <% if user_signed_in? %>
+            <p>Sessão ativa: <%= current_user.email %></p>
+          <% end %>
+        </div>
+      </div>
+    </footer>
 
   </body>
 </html>

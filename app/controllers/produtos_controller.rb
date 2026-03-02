@@ -6,9 +6,14 @@ class ProdutosController < ApplicationController
     @produtos = Produto.all
   end
 
-  # GET /produtos/1 or /produtos/1.json
-  def show
+# GET /produtos/1 or /produtos/1.json
+def show
+  @produto = Produto.find(params[:id])
+  respond_to do |format|
+    format.html
+    format.json { render json: @produto }
   end
+end
 
   # GET /produtos/new
   def new

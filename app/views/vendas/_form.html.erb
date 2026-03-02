@@ -1,4 +1,4 @@
-<%= form_with(model: venda) do |form| %>
+<%= form_with(model: venda, data: { controller: "venda" }) do |form| %>
   <% if venda.errors.any? %>
     <div style="color: red; border: 1px solid red; padding: 10px; margin-bottom: 20px;">
       <h2><%= pluralize(venda.errors.count, "erro") %> impediram esta venda de ser salva:</h2>
@@ -18,7 +18,11 @@
 
     <div>
       <%= form.label :total, "Valor Total (R$)", style: "display: block; font-weight: bold;" %>
-      <%= form.text_field :total, placeholder: "0.00" %>
+      <%= form.text_field :total, 
+          data: { venda_target: "total" }, 
+          readonly: true, 
+          style: "background: #f0f0f0; font-weight: bold; border: 1px solid #ccc; padding: 5px;",
+          placeholder: "0.00" %>
     </div>
   </div>
 
@@ -34,30 +38,27 @@
 
   <hr style="margin: 30px 0;">
   
-  <h3 style="color: #2c3e50;">Produtos / Itens da Venda</h3>
+  <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+    <h3 style="color: #2c3e50; margin: 0;">Produtos / Itens da Venda</h3>
+    <button type="button" 
+            data-action="click->venda#addItem" 
+            style="background: #2c3e50; color: white; padding: 8px 15px; border: none; border-radius: 4px; cursor: pointer; font-size: 14px;">
+      + Adicionar Outro Produto
+    </button>
+  </div>
   
-  <div id="itens-venda">
+  <div data-venda-target="itemsContainer">
     <%= form.fields_for :itens_venda do |item_form| %>
-      <div class="item-form-row" style="display: flex; gap: 15px; align-items: flex-end; background: #f9f9f9; padding: 15px; border-radius: 5px; margin-bottom: 10px; border: 1px solid #ddd;">
-        
-        <div style="flex: 2;">
-          <%= item_form.label :produto_id, "Produto", style: "display: block;" %>
-          <%= item_form.collection_select :produto_id, Produto.all, :id, :nome, { prompt: "Selecione o produto..." }, { style: "width: 100%; padding: 5px;" } %>
-        </div>
-
-        <div style="flex: 1;">
-          <%= item_form.label :quantidade, "Qtd", style: "display: block;" %>
-          <%= item_form.number_field :quantidade, step: 1, min: 1, style: "width: 100%; padding: 5px;" %>
-        </div>
-
-        <div style="flex: 1;">
-          <%= item_form.label :preco_unitario, "Preço Unit. (R$)", style: "display: block;" %>
-          <%= item_form.text_field :preco_unitario, placeholder: "0.00", style: "width: 100%; padding: 5px;" %>
-        </div>
-
-      </div>
+      <%= render "item_venda_fields", f: item_form %>
     <% end %>
   </div>
+
+  <%# Template para o JavaScript copiar ao clicar em adicionar %>
+  <template data-venda-target="template">
+    <%= form.fields_for :itens_venda, ItemVenda.new, child_index: "NEW_ID" do |item_f| %>
+      <%= render "item_venda_fields", f: item_f %>
+    <% end %>
+  </template>
 
   <div style="margin-top: 30px; padding-top: 20px; border-top: 2px solid #eee;">
     <%= form.submit "Finalizar e Registrar Venda", style: "background: #27ae60; color: white; padding: 12px 30px; border: none; border-radius: 4px; cursor: pointer; font-size: 16px; font-weight: bold;" %>
