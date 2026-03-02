@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_03_01_041927) do
+ActiveRecord::Schema[8.1].define(version: 2026_03_02_183146) do
   create_table "clientes", force: :cascade do |t|
     t.string "cpf"
     t.datetime "created_at", null: false
@@ -23,6 +23,13 @@ ActiveRecord::Schema[8.1].define(version: 2026_03_01_041927) do
     t.string "cargo"
     t.datetime "created_at", null: false
     t.string "nome"
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "itens_vendas", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.decimal "preco_unitario"
+    t.decimal "quantidade"
     t.datetime "updated_at", null: false
   end
 
