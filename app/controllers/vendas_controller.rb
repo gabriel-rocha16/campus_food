@@ -84,7 +84,7 @@ class VendasController < ApplicationController
       :total,
       :cliente_id,
       :funcionario_id,
-      itens_venda_attributes: [ :id, :produto_id, :quantidade, :preco_unitario, :_destroy ]
+      itens_venda_attributes: [ :id, :produto_id, :quantidade, :preco_unitario, :valor_total, :_destroy ]
     )
   end
 end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_03_02_184402) do
+ActiveRecord::Schema[8.1].define(version: 2026_03_03_000552) do
   create_table "clientes", force: :cascade do |t|
     t.string "cpf"
     t.datetime "created_at", null: false
@@ -32,6 +32,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_03_02_184402) do
     t.integer "produto_id", null: false
     t.decimal "quantidade"
     t.datetime "updated_at", null: false
+    t.decimal "valor_total"
     t.integer "venda_id", null: false
     t.index ["produto_id"], name: "index_itens_vendas_on_produto_id"
     t.index ["venda_id"], name: "index_itens_vendas_on_venda_id"

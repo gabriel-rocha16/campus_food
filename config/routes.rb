@@ -3,7 +3,11 @@ Rails.application.routes.draw do
   devise_for :users
   root "produtos#index"
 
-  resources :produtos
+  resources :produtos do
+    member do
+      get :preco
+    end
+  end
   resources :clientes
   resources :funcionarios
   resources :vendas

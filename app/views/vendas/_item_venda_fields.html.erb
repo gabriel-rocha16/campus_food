@@ -11,17 +11,24 @@
   <div style="flex: 1;">
     <%= f.label :quantidade, "Qtd" %>
     <%= f.number_field :quantidade, 
-        step: 1, min: 1, 
-        data: { action: "input->venda#calculateTotal" },
+        step: 0.01, min: 0.01, 
+        data: { action: "input->venda#calculateTotal", venda_target: "quantidade" },
         style: "width: 100%; padding: 5px;" %>
   </div>
 
   <div style="flex: 1;">
     <%= f.label :preco_unitario, "Preço Unit. (R$)" %>
-    <%# Este target DEVE ser unitPrice para o JS encontrar %>
+    <%# Agora é editável e dispara o cálculo %>
     <%= f.text_field :preco_unitario, 
-        data: { venda_target: "unitPrice" },
-        readonly: true,
-        style: "width: 100%; padding: 5px; background: #eee;" %>
+        data: { action: "input->venda#calculateTotal", venda_target: "unitPrice" },
+        style: "width: 100%; padding: 5px;" %>
+  </div>
+
+  <div style="flex: 1;">
+    <%= f.label :valor_total, "Valor Total (R$)" %>
+    <%# Novo campo para o valor total do item %>
+    <%= f.text_field :valor_total, 
+        data: { action: "input->venda#updateGrandTotal", venda_target: "valorTotal" },
+        style: "width: 100%; padding: 5px; background: #e8f5e9; font-weight: bold;" %>
   </div>
 </div>
