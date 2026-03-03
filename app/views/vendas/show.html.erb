@@ -3,8 +3,8 @@
 <%= render @venda %>
 
 <div>
-  <%= link_to "Edit this venda", edit_venda_path(@venda) %> |
-  <%= link_to "Back to vendas", vendas_path %>
+  <%= link_to "Editar venda", edit_venda_path(@venda) %> |
+  <%= link_to "Voltar para vendas", vendas_path %>
 
-  <%= button_to "Destroy this venda", @venda, method: :delete %>
+  <%= button_to "Excluir esta venda", @venda, method: :delete %>
 </div>
