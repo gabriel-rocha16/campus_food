@@ -3,7 +3,15 @@
 one:
   quantidade: 9.99
   preco_unitario: 9.99
+  produto: one
+  venda: one
+  created_at: <%= Time.now %>
+  updated_at: <%= Time.now %>
 
 two:
   quantidade: 9.99
   preco_unitario: 9.99
+  produto: two
+  venda: two
+  created_at: <%= Time.now %>
+  updated_at: <%= Time.now %>
